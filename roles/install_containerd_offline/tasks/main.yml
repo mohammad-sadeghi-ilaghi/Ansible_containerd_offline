@@ -1,0 +1,45 @@
+- name: Install deb packages containerd
+  ansible.builtin.unarchive:
+    src: {{ containerd_file }}
+    dest: /usr/local/
+
+- name: Copy file containerd.service to `/etc/systemd/system/` 
+  ansible.builtin.copy:
+    src: containerd.service
+    dest: /etc/systemd/system/
+    owner: sysadm
+    group: sysadm
+    mode: '0777'
+- name: restarted containerd and enabled and daemon_reload
+  ansible.builtin.systemd_service:
+    state: restarted
+    name: containerd
+    daemon_reload: true
+    enabled: true
+- name: Copy runc.amd64 to /usr/local/sbin and set permissions
+  copy:
+    src: runc.amd64
+    dest: /usr/local/sbin/runc
+    mode: '0755'
+
+- name: Create a directory if it does not exist `/opt/cni/bin`
+  ansible.builtin.file:
+    path: /opt/cni/bin
+    state: directory
+    mode: '0777'
+
+- name: Install deb packages cni_plugins 
+  ansible.builtin.unarchive:
+    src: {{ cni_plugins }}
+    dest: /opt/cni/bin/
+
+- name: Create a directory if it does not exist `/etc/containerd/`
+  ansible.builtin.file:
+    path: /etc/containerd/
+    state: directory
+    mode: '0777'
+- name: Touch a file `config.toml` in `/etc/containerd/` 
+  ansible.builtin.file:
+    path: /etc/containerd/config.toml
+    state: touch
+    mode: "0777"

@@ -1,0 +1,5 @@
+- name: install containerd server 
+  hosts: target_servers
+  become: yes
+  roles:
+    - install_containerd_offline

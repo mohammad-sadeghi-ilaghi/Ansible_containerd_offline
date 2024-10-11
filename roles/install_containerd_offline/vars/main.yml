@@ -1,0 +1,2 @@
+containerd_file: "containerd-1.7.22-linux-amd64.tar.gz"
+cni_plugins: "cni-plugins-linux-amd64-v1.5.1.tgz"
