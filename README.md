@@ -1,5 +1,5 @@
-
-# install containerd in offline mode with service with commands 
+# install containerd in offline mode with Commands and Ansible
+## 1. Install containerd in offline mode with service with commands in linux 
 note: go to root user `sudo su`
 1. unrar files 
 ```
@@ -32,7 +32,7 @@ $ touch /etc/containerd/config.toml
 ```
 ctr
 ```
-# install with ansible role install_containerd_offline
+##  2. install with ansible role install_containerd_offline
 note: first load file of conatinerd and another file from containerd [github account] ([/guides/content/editing-an-existing-page](https://github.com/containerd/containerd/blob/main/docs/getting-started.md))
 ```
  ansible-playbook -i inventory.ini playbook.yml
